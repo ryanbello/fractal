@@ -1,0 +1,152 @@
+﻿@charset "UTF-8";
+
+body { font-family:arial; }
+blockquote { font-style:italic; }
+canvas { border: 1px solid black; 
+	 box-shadow: 3px 3px 7px #777; 
+margin-top: 10px;
+       }
+/* Makeshift CSS Reset */  
+{  
+    margin: 0;  
+    padding: 0;  
+}  
+
+.right {
+    float:right;
+    clear:right;
+}
+
+.var {
+    display:inline-block;
+    width:180px;
+}
+
+/* Tell the browser to render HTML 5 elements as block */  
+header, footer, aside, nav, article {  
+    display: block;  
+}  
+
+body {  
+    margin: 0 auto;  
+    width: 940px;  
+    font: 13px/22px Helvetica, Arial, sans-serif;  
+    background: #f0f0f0;  
+}  
+
+h2 {  
+    font-size: 28px;  
+    line-height: 44px;  
+    padding: 22px 0;  
+}  
+
+h3 {  
+    font-size: 18px;  
+    line-height: 22px;  
+    padding: 11px 0;  
+}  
+
+p {  
+    padding-bottom: 22px;  
+}
+
+nav {  
+    position: absolute;  
+    left: 0;  
+    width: 100%;  
+    background: url("nav_background");  
+    background-color: black;
+}
+
+nav ul {  
+    margin: 0 auto;  
+    width: 940px;  
+    list-style: none;  
+}
+
+nav ul li {  
+    float: left;  
+}  
+
+nav ul li a {  
+    display: block;  
+    margin-right: 20px;  
+    width: 130px;  
+    font-size: 14px;  
+    line-height: 44px;  
+    text-align: center;  
+    text-decoration: none;  
+    color: #777;  
+}  
+
+nav ul li a:hover {  
+    color: #fff;  
+}  
+
+nav ul li.selected a {  
+    color: #fff;  
+}  
+
+nav ul li.subscribe a {  
+    margin-left: 22px;  
+    padding-left: 33px;  
+    text-align: left;  
+    background: url("rss.png") left center no-repeat;  
+} 
+
+#intro {
+    color: #e5eed3;
+    height: 300px;
+    margin-top: 76px;
+    padding-left: 44px;
+    padding-top: 4px;
+    background: #010765 url("mandelbrot_intro.png") bottom right;
+    border-radius: 22px;
+}
+#intro p {
+    width: 600px;
+}
+/*#intro h2, #intro p {
+    width: 600px;
+}*/
+#intro h2 {
+    padding: 0 0 22px 0;
+    font-weight: normal
+    color: #fff;
+}
+#intro p {  
+    padding: 0;  
+    color: #d9f499;  
+} 
+#content {  
+    display: table;  
+}  
+
+#mainContent {  
+    display: table-cell;  
+    width: 620px;  
+    padding-right: 22px;  
+}  
+
+aside {  
+    display: table-cell;  
+    width: 300px;  
+}  
+//.blogPost div {  
+//    column-count: 2; 
+//    -moz-column-count:2; /* Firefox */
+//    -webkit-column-count:2; /* Safari and Chrome */ 
+//    column-gap: 22px;  
+//    -moz-column-gap: 22px;  
+//    -webkit-column-gap: 22px;
+//} 
+section#comments article:nth-child(2n+1) {  
+    padding: 21px;  
+    background: #E3E3E3;  
+    border: 1px solid #d7d7d7;  
+    
+    /* Border-radius not implemented yet */  
+    border-radius: 11px;  
+    -moz-border-radius: 11px;  
+    -webkit-border-radius: 11px;  
+}
