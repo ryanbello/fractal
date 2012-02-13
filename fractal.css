@@ -4,7 +4,7 @@ body { font-family:arial; }
 blockquote { font-style:italic; }
 canvas { border: 1px solid black; 
 	 box-shadow: 3px 3px 7px #777; 
-margin-top: 10px;
+	 margin-top: 10px;
        }
 /* Makeshift CSS Reset */  
 {  
@@ -54,6 +54,7 @@ nav {
     position: absolute;  
     left: 0;  
     width: 100%;  
+    /*background: url("nav_background");  */
     background-color: black;
 }
 
@@ -86,12 +87,14 @@ nav ul li.selected a {
     color: #fff;  
 }  
 
+/*
 nav ul li.subscribe a {  
     margin-left: 22px;  
     padding-left: 33px;  
     text-align: left;  
     background: url("rss.png") left center no-repeat;  
 } 
+*/
 
 #intro {
     color: #e5eed3;
@@ -117,20 +120,34 @@ nav ul li.subscribe a {
     padding: 0;  
     color: #d9f499;  
 } 
-#content {  
-    display: table;  
-}  
-
-#mainContent {  
-    display: table-cell;  
-    width: 620px;  
-    padding-right: 22px;  
-}  
+//#content {  
+//    display: table;  
+//}  
+//
+//#mainContent {  
+//    display: table-cell;  
+//    width: 620px;  
+//    padding-right: 22px;  
+//}  
+//
+//aside {  
+//    display: table-cell;  
+//    width: 300px;  
+//}  
 
 aside {  
-    display: table-cell;  
-    width: 300px;  
+    position: relative;
+    margin: 0 auto;
+    text-align: left;
+    width: 0px;  
 }  
+
+aside canvas {
+    position:absolute;
+    left: -600px;
+    top: 3px;
+}
+
 //.blogPost div {  
 //    column-count: 2; 
 //    -moz-column-count:2; /* Firefox */

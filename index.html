@@ -1,13 +1,15 @@
 ﻿<!doctype html>
 <html>
-<head>
+  <head>
     <title>Basic Fractal Explorer</title>
-    <meta http-equiv=content-type content=text/html;charset=UTF-8>
+	<meta http-equiv=content-type content=text/html;charset=UTF-8>
     <script src=http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML></script>
-    <script src=fractal.js></script>
+	<script src=fractal.js></script>
+    <!--script src=es5-shim.js></script-->
     <link rel=stylesheet href=fractal.css>
-</head>
-<body onload="onload();">
+  </head>
+
+  <body onload="load();">
     <header><h1>Basic Fractal Explorer</h1></header>
     <nav>
       <ul>
@@ -19,13 +21,17 @@
         <li><a href=#contact>Contact</a>
       </ul>
     </nav>
-	<section id=intro>
-      <header><h2>HTML5 Canvas + JavaScript Fractal Experiment</h2></header>
-      <p>Here you can explore the Mandelbrot and Julia fractals, see the equations behind the scenes,
-	  and the calculations used to render them. A fun little project devised to explore how the	current
-	  web can handle data visualization and some heafty number crunching. Formatting equations TeX style
-	  is pretty cool too!</p>
-    </section>
+
+    <section id=intro>
+		<header><h2>HTML5 Canvas + JavaScript Fractal Experiment</h2></header>
+		<p>Here you can explore the Mandelbrot and Julia fractals, see
+		the equations behind the scenes, and the calculations used to
+		render them. A fun little project devised to explore how the
+		current web can handle data visualization and some heafty
+		number crunching. Formatting equations TeX style is pretty
+		cool too!</p>
+	</section>
+
     <section>
 		<article id=formula>
 			<header><h2>Formula</h2></header>
@@ -37,8 +43,25 @@
 			<math mode=display>
 				<msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub> <mo>=</mo> <msup><msub><mi>z</mi><mi>n</mi></msub> <mn>2</mn></msup> <mo>+</mo> <mi>c</mi>
 			</math>
-			</p>
 		</article>
+
+		<aside>
+			<canvas width=50 height=1024 id=pallet></canvas>
+		</aside>
+
+		<article id=fractal_set>
+			<p>Circle set for c = <span id=point>0</span></p>
+			<p width=301 class=right>Circle plots for<br>
+				<span class=var>z<sub>0</sub>                = <span id=circle_z0>0</span></span><br>
+				<span class=var>c                            = <span id=circle_c>0</span></span><br>
+				<span class=var>z<sub id=circle_n>1000</sub> = <span id=circle_zn>2</span></span><br>
+				<span class=var>deband                       = <span id=circle_deband></span></span>
+			</p>
+			<canvas id=circlePts width=301 height=301 class=right></canvas>
+			<canvas id=circle    width=601 height=601 ></canvas>
+			<canvas id=circleItr width=1024 height=100></canvas>
+		</article>
+
 		<article id=mandelbro_set>
 			<header><h2>Mandelbrot Set</h2></header>
 			<p>All grid lines represent one unit.  The x-axis is
@@ -47,105 +70,108 @@
 			is (2 + 2·i), and the bottom left is (-2 - 2·i). The graphs
 			on the right show each step of the iterative calculation.
 			The red circle has a radius of 2, any iterative step that
-			exceeds this magnitude is guaranteed to diverge.</p> 			<p>Mouse-over the Mandelbrot graph to reveal the iterative
+			exceeds this magnitude is guaranteed to diverge.</p>
+
+			<p>Mouse-over the Mandelbrot graph to reveal the iterative
 			calcualtions for the point under your cursor.  For each
 			iteration a line is drawn on the smaller graphs to the
 			right.  When you mouse-over the black region the equation
 			does not diverge, so the lines will always stay with the red
-			boundaries.</p> 			<p>Click on the Mandelbrot set to re-draw a new Julia Set
+			boundaries.</p>
+
+			<p>Click on the Mandelbrot set to re-draw a new Julia Set
 			for the corresponding constant "c" value.  The Julia Set
 			pattern will resemble the pattern in the small area around
 			where you click.  </p>
-
-			<p>Mandelbrot plots for
-			<span class=var>z<sub>0</sub>           = <span id=m_z0>0</span></span>,&nbsp;&nbsp;&nbsp;
-			<span class=var>c                       = <span id=m_c>0</span></span>,&nbsp;&nbsp;&nbsp;
-			<span class=var>z<sub id=m_n>1000</sub> = <span id=m_zn>2</span></span>
+			<canvas id=mbPts width=301 height=301 class=right></canvas>
+			<p width=301 class=right>Mandelbrot plots for<br>
+				<span class=var>z<sub>0</sub>            = <span id=mb_z0>0</span></span><br>
+				<span class=var>c                        = <span id=mb_c>0</span></span><br>
+				<span class=var>z<sub id=mb_n>1000</sub> = <span id=mb_zn>2</span></span><br>
+				<span class=var>deband                   = <span id=mb_deband></span></span>
 			</p>
-			<canvas id=mpoles     width=301 height=301 class=right></canvas>
-			<canvas id=miters     width=301 height=301 class=right></canvas>
-			<canvas id=mandelbrot width=601 height=601 onmousemove=mandelbrot.mousemove(event) onclick=mandelbrot.click(event)></canvas>
+			<canvas id=mb    width=601 height=601 ></canvas>
+			<canvas id=mbItr width=1024 height=100></canvas>
 		</article>
 
 		<article id=julia_set>
 			<header><h2>Julia Set</h2></header>
 			<p>Julia set for c = <span id=point>0</span></p>
 			<p>Julia plots for
-				<span class=var>z<sub>0</sub>           = <span id=j_z0>0</span></span>,&nbsp;&nbsp;&nbsp;
-				<span class=var>c                       = <span id=j_c>0</span></span>,&nbsp;&nbsp;&nbsp;
+				<span class=var>z<sub>0</sub>           = <span id=j_z0>0</span></span>
+				<span class=var>c                       = <span id=j_c>0</span></span>
 				<span class=var>z<sub id=j_n>1000</sub> = <span id=j_zn>2</span></span>
+				<span class=var>deband                  = <span id=j_deband></span></span>
 			</p>
 			<canvas id=jpoles     width=301 height=301 class=right></canvas>
 			<canvas id=jiters     width=301 height=301 class=right></canvas>
 			<canvas id=julia      width=601 height=601 onmousemove=julia.mousemove(event) onclick=julia.click(event)></canvas>
 		</article>
-		
+
 		<article id=about>
 			<header><h2>About</h2></header>
 			<p>From <a href=http://en.wikipedia.org/wiki/Fractal>Wikipedia/Fractal</a>:
-			<blockquote cite=http://en.wikipedia.org/wiki/Fractal> A
-              fractal has been defined as "a rough or fragmented geometric
-              shape that can be split into parts, each of which is (at least
-              approximately) a reduced-size copy of the whole," a property
-              called self-similarity. Roots of the idea of fractals go back
-              to the 17th century, while mathematically rigorous treatment
-              of fractals can be traced back to functions studied by Karl
-              Weierstrass, Georg Cantor and Felix Hausdorff a century later
-              in studying functions that were continuous but not
-              differentiable; however, the term fractal was coined by Benoît
-              Mandelbrot in 1975 and was derived from the Latin fr?ctus
-              meaning "broken" or "fractured." A mathematical fractal is
-              based on an equation that undergoes iteration, a form of
-              feedback based on recursion. There are several examples of
-              fractals, which are defined as portraying exact
-              self-similarity, quasi self-similarity, or statistical
-              self-similarity. While fractals are a mathematical construct,
-              they are found in nature, which has led to their inclusion in
-              artwork. They are useful in medicine, soil mechanics,
-              seismology, and technical analysis.
-            </blockquote>
+			<blockquote cite=http://en.wikipedia.org/wiki/Fractal > A
+			fractal has been defined as "a rough or fragmented geometric
+            shape that can be split into parts, each of which is (at least
+            approximately) a reduced-size copy of the whole," a property
+            called self-similarity. Roots of the idea of fractals go back
+            to the 17th century, while mathematically rigorous treatment
+            of fractals can be traced back to functions studied by Karl
+            Weierstrass, Georg Cantor and Felix Hausdorff a century later
+            in studying functions that were continuous but not
+            differentiable; however, the term fractal was coined by Benoît
+            Mandelbrot in 1975 and was derived from the Latin frāctus
+            meaning "broken" or "fractured." A mathematical fractal is
+            based on an equation that undergoes iteration, a form of
+            feedback based on recursion. There are several examples of
+            fractals, which are defined as portraying exact
+            self-similarity, quasi self-similarity, or statistical
+            self-similarity. While fractals are a mathematical construct,
+            they are found in nature, which has led to their inclusion in
+            artwork. They are useful in medicine, soil mechanics,
+            seismology, and technical analysis.
+			</blockquote>
+
 			<p>A calculations performed in the browser using JavaScript
 			and the canvas element. View
 			the <a href=fractal.js>JavaScript Code</a> and
 			the <a href=fractal.html.txt>HTML Text</a>.</p>
-
 			<p>The rendering speed is relatively slow, but useable.
 			Despite having (getting?) to learn JavaSctip and the canvas
 			element, overall this demo was quick to implement and easy
 			to deploy and share.  The code was not optimized at all for
 			speed, and I doubt any improvements in this area would
 			increase the comprehension by readers.</p>
-			
 			<p>Posted on <time datetime=2012-01-11>Jan 11 2012</time> by <a href=#contact>Ryan Bello</a></p>
 		</article>
-		
+
 		<article id=contact>
 			<header><h2>Contact</h2></header>
 			<p>Ryan Bello <a href="mailto:Ryan Bello <ryanbello@gmail.com>">ryanbello@gmail.com</a></p>
 		</article>
-    </section>
-	
-	<aside>
-    </aside>
-	
-	<footer>
+	</section>
+
+    <footer>
 		<header><h3>Footer</h3></header>
 		<p>Label the graphs! Real numbers along x-axis, imaginary along y-axis.</p>
 		<p>When I code up my algebra for complex powers I'll explore fractals based on the formula:
-			<math mode=display>
-				<msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub> <mo>=</mo> <msup><msub><mi>z</mi><mi>n</mi> <mi>z</mi></msup> <mo>+</mo> <mi>c</mi>
-			</math>
-		</p>
+		<math mode=display>
+			<msub><mi>z</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub> <mo>=</mo> <msup><msub><mi>z</mi><mi>n</mi> <mi>z</mi></msup> <mo>+</mo> <mi>c</mi>
+		</math>
 		<p>A good learning tool to include would be a graph that
 		visualized the results for the complex arithmetic operators of
 		addition and multiplication.  And maybe division.  That would
-		show the opreations involved in each iterative step.</p> 		<ul>
+		show the opreations involved in each iterative step.</p>
+
+		<ul>
 			<li><a href=#iterative>Iterative Equations</a>
 			<li><a href=#bounded>Bounded Limit</a>
 			<li><a href=#complex>Complex Arithmatic</a>
-		</ul> 		<p>Written by Ryan Bello. Devised to learn techniques of
+		</ul>
+		<p>Written by Ryan Bello. Devised to learn techniques of
 		numerical calculation with JavaScript and HTML5 canvas. Perhaps
 		<a href=hello.m>Objective-C</a> as well!</p>
-    </footer>
-</body>  
+	</footer>
+  </body>
 </html>
